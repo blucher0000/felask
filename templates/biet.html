@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"> 
+        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css"></link>
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <p> </p>
+        <h3>桥梁信息</h3>
+        <input class="put" type="text" placeholder="桥梁信息" id='binfo' autocomplete="off"required style = "width: 1200px;height:50px" value="明光桥位于洪湖市小港管理区，中心桩号为k1+044，是一座空腹圬工拱，桥梁全长为16m，桥跨组合为1*6m，桥梁全宽为5.5m，桥宽组合为1m（护栏）+3.5m（行车道）+1m（护栏）。上部结构为空腹圬工拱，支座状态为未设置支座。下部结构为砖砌混凝土重力式桥台。桥面铺装采用乐高积木铺装，两侧设有砖砌混凝土护栏，未设置伸缩缝。该桥始建于1981，设计荷载为挂车-100级。桥梁正面照、立面照见图1.1-1、图1.1-2。"></input>
+        <p> </p>
+        <h3>schema</h3>
+        <input class="put" type="text" placeholder="用空格隔开的关键信息" id='schema' autocomplete="off" required style = "width: 1200px" value="桥梁名称 上部结构 下部结构 桥面铺装" ></input>
+        <p> </p>
+        <input class="put" type="button" value="发送数据" onclick="btnSendData()"> </input>      
+        <script>
+            function btnSendData() {
+                var input = {
+                    'binfo': document.getElementById('binfo').value,
+                    'schema': document.getElementById('schema').value
+                };
+                $.ajax({
+                    url: '/bietd',
+                    type: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify(input),
+                    beforeSend:function(XMLHttpRequest){ 
+                        $("#loading").html("<img src='./static/images/totoro.gif'/>"); //在后台返回success之前显示loading图标
+                    },
+                    success: function (res) {
+                        if(res != null){
+                            alert("整到了" + res);
+                        }
+                        console.log(res);
+                        $("#loading").empty();
+                        var result = JSON.stringify(JSON.parse(res), null, 2);
+                        document.getElementById("myPre").innerHTML=result;
+                    }
+                });   
+            }
+        </script>
+	    <div id="loading"></div>
+        <p> </p>
+        <pre id="myPre"></pre>
+    </body>
+</html>

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='btn.css') }}" type="text/css">
+<script type="text/javascript" src="btn.js"></script>
+<p>bridge_information and schema</p>
+<p> 请用空格隔开schema,可以写很多schema</p>
+<form id = "form1" method="post" target="iframe">
+    bridge_information: <input type="text" name="mystring" autocomplete="on" required style="width: 1200px;height:50px">
+    schema: <input type="text" name="myschema" autocomplete="on" required style="width: 1200px">
+    <input class="btn" type="submit" name="submit" value="提交">
+</form>
+<p>{{ result }}</p>

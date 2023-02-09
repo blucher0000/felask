@@ -44,9 +44,9 @@ def user_page(name):
     return f'User: {escape(name)}'
 
 
-@app.route('/ie/<mystring>')
-def myie(mystring):
-    text_str = mystring
+@app.route('/ie')
+def myie():
+    text_str = request.args.get('s')
     schema = ["桥梁名称",'位置市','位置镇', '中心桩号','全长', '桥跨组合', '桥梁全宽',"上部结构","下部结构","桥面铺装采用","桥宽组合","始建时间","设计荷载"] # Define the schema for entity extraction
     ie = Taskflow('information_extraction', schema=schema,batch_size=16, model='uie-base',position_prob=0.5)
     pprint(ie(text_str))
